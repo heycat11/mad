@@ -1,0 +1,183 @@
+xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="316dp"
+        android:layout_height="70dp"
+        android:text="Hospital Database"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.054" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="141dp"
+        android:layout_height="62dp"
+        android:text="Hospital id:"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.232" />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="142dp"
+        android:layout_height="58dp"
+        android:text="Name:"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.395" />
+    <TextView
+        android:id="@+id/textView3a"
+        android:layout_width="142dp"
+        android:layout_height="58dp"
+        android:text="Location:"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.104"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.555" />
+    <EditText
+        android:id="@+id/Hid"
+        android:layout_width="214dp"
+        android:layout_height="55dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.918"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="id"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.229" />
+    <EditText
+        android:id="@+id/Hname"
+        android:layout_width="212dp"
+        android:layout_height="61dp"
+        android:ems="10"
+        android:hint="name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.894"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.397" />
+    <EditText
+        android:id="@+id/Hlocation"
+        android:layout_width="209dp"
+        android:layout_height="54dp"
+        android:ems="10"
+        android:hint="location"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.564" />
+    <Button
+        android:layout_width="162dp"
+        android:layout_height="93dp"
+        android:onClick="save"
+        android:text="SAVE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.761" />
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="166dp"
+        android:layout_height="91dp"
+        android:onClick="load"
+        android:text="LOAD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.762" />
+    <TextView
+        android:id="@+id/tv_output"
+        android:layout_width="186dp"
+        android:layout_height="79dp"
+        android:hint="RESULT"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.946" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+java
+package com.example.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+public class MainActivity extends AppCompatActivity {
+    String s1, s2;
+    EditText et1, et2,et3;
+    TextView tv1;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        et1=(EditText)findViewById(R.id.Hid);
+        et2=(EditText)findViewById(R.id.Hname);
+        et3=(EditText)findViewById(R.id.Hlocation);
+        tv1=(TextView)findViewById(R.id.tv_output);
+    }
+    public void save (View view)
+    { s1 = et1.getText().toString();
+        s2 = s1+ " "+et2.getText().toString()+ " "+et3.getText().toString()+"\n"; try
+    { FileOutputStream fos = openFileOutput("file1.txt", MODE_APPEND);
+        fos.write(s2.getBytes()); }
+    catch (FileNotFoundException e) { e.printStackTrace(); }
+    catch (Exception e)
+    { e.printStackTrace(); }
+    }
+    public void load (View v)
+    { try
+    { FileInputStream fis = openFileInput("file1.txt");
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
+        StringBuilder sb = new StringBuilder();
+        String text;
+        while ((text=br.readLine())!= null) { sb.append(text);
+            sb.append("\n"); }
+        tv1.setText (sb.toString()); }
+    catch (FileNotFoundException e) { e.printStackTrace(); }
+    catch (Exception e)
+    { e.printStackTrace(); }
+    } }
