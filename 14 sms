@@ -1,0 +1,101 @@
+xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView android:id="@+id/textView" android:layout_width="93dp" android:layout_height="55dp" android:text="SMS" android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.494" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.083" />
+    <EditText
+        android:id="@+id/msg" android:layout_width="345dp" android:layout_height="59dp"
+        android:ems="10" android:inputType="textPersonName" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.712" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.633" />
+    <Button
+        android:id="@+id/send" android:layout_width="284dp" android:layout_height="112dp" android:onClick="report"
+        android:text="Send Message" android:textSize="30sp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.496" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.862" />
+    <TextView
+        android:id="@+id/textView7" android:layout_width="159dp" android:layout_height="43dp" android:text="Mobile No:" android:textSize="30sp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.156" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.28" />
+    <TextView
+        android:id="@+id/textView8" android:layout_width="147dp" android:layout_height="49dp" android:text="Message: " android:textSize="30sp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.152" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.526" />
+    <EditText
+        android:id="@+id/mb" android:layout_width="307dp" android:layout_height="61dp"
+        android:ems="10"
+        android:inputType="phone" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.375" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.38" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+java
+package com.example.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.Manifest;
+import android.app.PendingIntent;
+import android.content.pm.PackageManager;
+import android.telephony.SmsManager;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+public class MainActivity extends AppCompatActivity { EditText etPhone, etMessage;
+    Button btnSendSMS;
+    PendingIntent sentPI, deliveredPI;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        etPhone = (EditText) findViewById(R.id.mb);
+        etMessage = (EditText) findViewById(R.id.msg); btnSendSMS = (Button) findViewById(R.id.send); btnSendSMS.setOnClickListener(new View.OnClickListener() { @Override
+        public void onClick(View v)
+        { String message = etMessage.getText().toString();
+            String telNr = etPhone.getText().toString();
+            if(telNr.length()==10)
+            { if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) { ActivityCompat.requestPermissions(MainActivity.this, new
+                    String[]{Manifest.permission.SEND_SMS}, 1); Toast.makeText(getApplicationContext(), "SMS not sent!", Toast.LENGTH_SHORT).show();
+            }
+else {
+                SmsManager sms = SmsManager.getDefault();
+                sms.sendTextMessage(telNr, null, message, sentPI, deliveredPI); Toast.makeText(getApplicationContext(), "SMS sent successfully!", Toast.LENGTH_SHORT).show();
+            }
+            }
+            else
+            { Toast.makeText(getApplicationContext(), "SMS not sent !", Toast.LENGTH_SHORT).show();;
+            }
+        } });
+        Toast.makeText(getApplicationContext(), "Enter 10 digit number !", Toast.LENGTH_SHORT).show();
+    } }
+
+
+manifestr
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
