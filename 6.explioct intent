@@ -1,0 +1,95 @@
+xml 1
+<?xml version="1.0" encoding="utf-8"?> <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" tools:context=".MainActivity">
+    <TextView
+        android:id="@+id/tv1" android:layout_width="73dp" android:layout_height="30dp"
+        android:text="User Name" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.114" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.237" /> <EditText
+    android:id="@+id/name" android:layout_width="wrap_content"
+    android:layout_height="wrap_content" android:ems="10" android:inputType="textPersonName" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.845" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.241" /> <TextView
+    android:id="@+id/tv2" android:layout_width="83dp" android:layout_height="45dp" android:text="Password" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.14" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.403" /> <EditText
+    android:id="@+id/pwd" android:layout_width="wrap_content" android:layout_height="wrap_content" android:ems="10" android:inputType="textPersonName" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.85" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.403" /> <Button
+    android:id="@+id/btn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LOGIN" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.399" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.549" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+ 
+
+java 1
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.content.Intent;
+public class MainActivity extends AppCompatActivity {
+    EditText e1, e2;
+    TextView t1, t2;
+    Button btn;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState); setContentView(R.layout.activity_main);
+        e1 = (EditText) findViewById(R.id.name);
+        e2 = (EditText) findViewById(R.id.pwd);
+        t1 = (TextView) findViewById(R.id.tv1);
+        t2 = (TextView) findViewById(R.id.tv2);
+        btn = (Button) findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (e1.getText().toString().equals("bharath") &&
+                        e2.getText().toString().equals("bharath"))
+                {
+                    Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_LONG).show();
+                    Intent i1 = new Intent(getApplicationContext(), Welcome.class);
+                    i1.putExtra("username", e1.getText().toString());
+                    startActivity(i1);
+                } else
+                {
+                    Toast.makeText(getApplicationContext(), "Login Failure", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+}
+
+xml2
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Welcome">
+    <TextView
+        android:id="@+id/tview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+java 2 Welcome
+
+package com.example.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
+public class Welcome extends AppCompatActivity {
+    TextView tview;
+    @Override
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_welcome);
+        Bundle b1 = getIntent().getExtras();
+        String s1 = b1.getString("username");
+        TextView tv1 = (TextView) findViewById(R.id.tview);
+        tv1.setText("Login Successfull Welcome :" + s1);
+    }
+}
