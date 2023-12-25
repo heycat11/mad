@@ -1,0 +1,142 @@
+xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="currewncy converter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.082" />
+
+    <Spinner
+        android:id="@+id/s1"
+        android:layout_width="309dp"
+        android:layout_height="wrap_content"
+        android:entries="@array/Currency"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.373" />
+
+    <TextView
+        android:id="@+id/res"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="resukt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.144"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.83" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.721" />
+
+    <EditText
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text=""
+        android:hint="value"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.24" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+java
+
+package com.example.currency;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.Spinner;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.EditText;
+import android.view.View;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+    Spinner s1;
+    Button btn;
+    EditText t1;
+    TextView res;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        t1=(EditText)findViewById(R.id.t1);
+        res=(TextView) findViewById(R.id.res);
+        s1=(Spinner)findViewById(R.id.s1);
+        btn=(Button)findViewById(R.id.btn);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String v1=t1.getText().toString();
+                int a= Integer.parseInt(v1);
+                int x=s1.getSelectedItemPosition();
+                double num1=0;
+                if(x==1){
+                    num1=a*1.6;
+                    res.setText("result:"+num1);
+                }
+                else if(x==2){
+                    num1=a/1.6;
+                    res.setText("result:"+num1);
+                }
+                else if(x==3){
+                    num1=a*134;
+                    res.setText("result:"+num1);
+                }
+                else if(x==4){
+                    num1=a/134;
+                    res.setText("result:"+num1);
+                }
+                else {
+                    Toast.makeText(MainActivity.this,"plese select any item",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+}
+
+string xml
+<resources>
+    <string name="app_name">currency</string>
+    <string-array name="Currency">
+        <item>select</item>
+        <item>rupee to npr</item>
+        <item>npr to rupee</item>
+        <item>npr to dollar</item>
+        <item>dollar to npr</item>
+    </string-array>
+</resources>
